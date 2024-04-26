@@ -34,8 +34,7 @@ Common collective operations include:
 - **Gather**: All processes send their data to one process, which collects and combines the data.
 These collective operations are fundamental for distributed computing frameworks like NCCL (NVIDIA Collective Communications Library) and MPI (Message Passing Interface). These are used extensively in parallel algorithms and applications. They enable efficient coordination and communication among distributed processes, leading to improved scalability and performance. The following image has been adapted from [Link](https://pytorch.org/tutorials/intermediate/dist_tuto.html#setup).
 
-![collective](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/08c8431f-4fc0-4d7a-a85a-f86b0cfc48c8)
-
+![collective](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/94c6df80-ec17-40d2-afea-a5d180988c73)
 
 Different communication frameworks are used in distributed computing are GLOO, MPI, and NCCL, particularly for deep learning training across multiple CPUs, GPUs, or machines.
 - **GLOO**: GLOO is a collective communication library developed by Facebook. It is designed to support efficient communication primitives such as broadcast, all-gather, reduce, etc., necessary for distributed training.
@@ -49,8 +48,7 @@ Different communication frameworks are used in distributed computing are GLOO, M
 ## Distributed Training Strategies:
 Using various communication libraries, the following distributed training strategies are developed:
 
-![parallelism](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/3839fb45-c773-4f5b-a5bf-193addd41f3a)
-
+![parallelism](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/70c22512-af3f-4205-85d4-0527fbb59eb9)
 
 - **Data Parallelism (DP)**: In distributed training, each GPU worker handles a portion of the data and calculates the gradients based on that data. Afterward, all the gradients are combined and averaged across all workers to update the model weights. In PyTorch's Distributed Data Parallel (DDP), each GPU stores its copy of the model, optimizer, and gradients for its part of the data. Even with just two GPUs, users can see faster training thanks to PyTorch's built-in features like Data Parallel (DP) and Distributed Data Parallel (DDP). It is recommended to use DDP as it's more reliable and works with all models, whereas DP might not work with some models.
   
@@ -60,7 +58,7 @@ Using various communication libraries, the following distributed training strate
   
 - **Pipeline Parallelism (PP)**: In naive model parallelism, all GPUs process the same batch of data but wait for the previous GPU to finish its computation before proceeding. Essentially, only one GPU is active at any given time, leaving the others idle. This approach, though straightforward, isn't very efficient. A step up is Pipeline Parallelism (PP), where computation for different micro-batches of data overlaps, creating the illusion of parallelism. It's akin to the classic pipeline structure in computer architecture, where tasks are divided and processed simultaneously, optimizing efficiency.
 
-![model_vs_pipeline](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/a7dc63c3-03ab-47a4-bc8f-6551323ed2f3)
+![model_vs_pipeline](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/84f59fc0-c81c-45bd-9752-3a71c580add4)
 
 To accommodate the model within memory constraints, current solutions make trade-offs between computation, communication, and development efficiency:
 
@@ -74,7 +72,7 @@ ZeRO (Zero Redundancy Optimizer) tackles memory redundancies in data-parallel pr
 
 This is one of the most efficient and popular strategies for distributed training at the moment. DeepSpeed’s ZeRO, or Zero Redundancy Optimizer, is a form of data parallelism and tensor parallelism that massively improves memory efficiency. DeepSpeed ZeRO includes all the ZeRO stages 1, 2, and 3 as well as ZeRO-Offload, and ZeRO-Infinity (which can offload to disk/NVMe). ZeRO++. This algorithm can be visualized in the following diagram taken from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/):
 
-![DeepSpeed-Image-1](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/7df59081-61ea-4b7b-8a94-44e99052455e)
+![DeepSpeed-Image-1](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/58c1d527-fa10-4843-8280-cbc018dad90a)
 
 This figure shows the memory savings and communication volume for the three stages of ZeRO compared with standard data parallel baseline. In the memory consumption formula, Ψ refers to the number of parameters in a model and K is the optimizer specific constant term. As a specific example, we show the memory consumption for a 7.5B parameter model using Adam optimizer where K=12 on 64 GPUs.
 
@@ -141,9 +139,7 @@ Shards optimizer states + gradients across GPUs
 ### ZeRO Stage 3: 
 Shards optimizer states + gradients + model parameters GPUs. The diagram is taken from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/):
 
-![ZeRO3](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/b1a013a5-692c-47fb-a698-d14493ebaa72)
-
-
+![ZeRO3](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/ab4d590f-84c6-4173-8971-578d36aa4813)
 
 ### ZeRO-Offload: [paper](https://arxiv.org/abs/2101.06840)
 ZeRO-Offload is a smart way to train large models more efficiently. Released in January 2021, it lets the host CPU take on some of the work from the GPUs, like handling optimization tasks. This frees up GPU power for other important tasks. Offloading work to the CPU is slower than using the GPU, but ZeRO-Offload is smart about it. It only offloads less intensive tasks to the CPU, keeping the overall complexity the same. This means things like norm calculations and weight updates can happen on the CPU, while the GPU handles the heavy lifting like matrix multiplication during the forward and backward passes. ZeRO-Offload is compatible with all stages of ZeRO (1, 2, and 3), making it a versatile tool for efficient model training.
@@ -161,15 +157,15 @@ ZeRO++ is an enhanced version of ZeRO (Zero Redundancy Optimizer) developed by t
 Overall, ZeRO++ reduces communication volume by 4x with these three improvements, compared to ZeRO-3.
 
 This image is taken from this YouTube video: [Microsoft DeepSpeed introduction at KAUST](https://www.youtube.com/watch?v=wbG2ZEDPIyw&t=2651s)
-![GetImage(7)](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/3e9e5187-1f00-465b-b320-5ffef381b42b)
+
+![GetImage(7)](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/1ff90688-8e4f-482c-904f-90e150df6c7e)
 
 ## Single Device Memory Optimization Techniques:
 
 ### Gradient Accumulation:
 Gradient accumulation is a technique used in training deep learning models where gradients are accumulated over multiple iterations before updating the model parameters. Instead of updating the model weights after processing each batch of data, gradients from several batches are summed together and applied to update the model parameters less frequently. This way, instead of storing the gradients for each batch separately and updating the model weights after each batch, the gradients are accumulated over several batches before the update step. Accumulating gradients over multiple mini-batches before updating can extend convergence time and prolong training duration. Yet, it proves beneficial when memory is limited.
 
-![gradient_accumulation](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/f311ab41-8294-451b-8ae5-244b54818777)
-
+![gradient_accumulation](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/572125f5-6010-4ed3-9236-f885496894ee)
 
 ### Gradient Checkpoint:
 Gradient checkpointing is a method used to balance memory usage and computation time while training neural networks. During backpropagation, we need to keep track of intermediate activation values. However, storing all these results, especially in models with many layers or limited memory, can be memory-intensive.
