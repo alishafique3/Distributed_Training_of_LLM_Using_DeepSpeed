@@ -1,4 +1,4 @@
-# Distributed Training of LLM using DeepSpeed for Text Classification Task
+# Distributed training of LLM using deepspeed for text classification task
 Training or fine-tuning Large Language Models (LLMs) involves dealing with incredibly large models and datasets. These models can have billions of parameters and require vast amounts of GPU memory to train. Not only do the model weights take up a lot of memory, but the optimizer states also add to the memory requirements. With traditional methods, storing copies of the model weights, momentum, and variance parameters can quickly consume GPU memory. To overcome these challenges, distributed training strategies are employed. Distributed training allows for parallel processing across multiple devices, reducing memory usage and speeding up training. It's a crucial technique for efficiently training LLMs and advancing natural language understanding and generation.
 
 ## Usage:
