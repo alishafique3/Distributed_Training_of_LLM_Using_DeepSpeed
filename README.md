@@ -20,7 +20,7 @@ The deepspeed library is utilized to implement the ZeRO Stage 2 algorithm for fi
 ```bash
 deepspeed --num_gpus 2 sequence_classification.py --deepspeed_config /<path_to_config_file>/ds_config_zero2.json
 ```
-Two python files are also provided in basics folder in order to understand the concepts of distributed learning from scratch using pytorch libraries. This code is taken from following [Github Repository](https://github.com/seba-1511/dist_tuto.pth/tree/gh-pages)
+Three python files are also provided in basics folder in order to understand the concepts of distributed learning from scratch using pytorch libraries. This code is taken from following [Github Repository](https://github.com/seba-1511/dist_tuto.pth/tree/gh-pages) and [link](https://pytorch.org/tutorials/beginner/ddp_series_multigpu.html).
 
 ## Distributed Training Concepts
 Collective operations, in the context of parallel computing, refer to communication patterns where multiple processes or threads collaborate to perform a single operation collectively. These operations typically involve exchanging data among processes in a coordinated manner to achieve a common goal.
