@@ -160,17 +160,6 @@ This image is taken from this YouTube video: [Microsoft DeepSpeed introduction a
 
 ![GetImage(7)](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/1ff90688-8e4f-482c-904f-90e150df6c7e)
 
-## Single Device Memory Optimization Techniques:
-
-### Gradient Accumulation:
-Gradient accumulation is a technique used in training deep learning models where gradients are accumulated over multiple iterations before updating the model parameters. Instead of updating the model weights after processing each batch of data, gradients from several batches are summed together and applied to update the model parameters less frequently. This way, instead of storing the gradients for each batch separately and updating the model weights after each batch, the gradients are accumulated over several batches before the update step. Accumulating gradients over multiple mini-batches before updating can extend convergence time and prolong training duration. Yet, it proves beneficial when memory is limited.
-
-![gradient_accumulation](https://github.com/alishafique3/Distributed_Training_of_LLM_Using_DeepSpeed/assets/17300597/572125f5-6010-4ed3-9236-f885496894ee)
-
-### Gradient Checkpoint:
-Gradient checkpointing is a method used to balance memory usage and computation time while training neural networks. During backpropagation, we need to keep track of intermediate activation values. However, storing all these results, especially in models with many layers or limited memory, can be memory-intensive.
-Gradient checkpointing tackles this problem by selectively recomputing a subset of intermediate activations during backpropagation. Instead of storing every result, only the ones needed for calculating gradients are saved. The rest of the intermediate results are recalculated during the backward pass when required. This approach reduces memory usage by avoiding the storage of unnecessary results, even though it increases computation time.
-
 ## Conclusion
 In this tutorial, we studied various distributed training concepts and strategies. We also studied different variants of the Zero Redundancy Optimizer technique for efficiently training or finetuning large language models over multiple devices. Distributed training with ZeRO technique, allows us for parallel processing across multiple devices, reducing memory usage and speeding up training. It's an important and recent technique for efficiently training LLMs and advancing natural language processing.
 
