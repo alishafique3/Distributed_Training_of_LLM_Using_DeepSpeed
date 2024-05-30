@@ -164,7 +164,6 @@ This image is taken from this YouTube video: [Microsoft DeepSpeed introduction a
 In this tutorial, we studied various distributed training concepts and strategies. We also studied different variants of the Zero Redundancy Optimizer technique for efficiently training or finetuning large language models over multiple devices. Distributed training with ZeRO technique, allows us for parallel processing across multiple devices, reducing memory usage and speeding up training. It's an important and recent technique for efficiently training LLMs and advancing natural language processing.
 
 ## References
-1.  Gradient Accumulation and Checkpointing Link: https://aman.ai/primers/ai/grad-accum-checkpoint/#overview
-2.  Everything about Distributed Training and Efficient Finetuning Link: https://sumanthrh.com/post/distributed-and-efficient-finetuning/
-3.  Efficient Training on Multiple GPUs Link: https://huggingface.co/docs/transformers/v4.23.1/en/perf_train_gpu_many#efficient-training-on-multiple-gpus
-4.  ZeRO & DeepSpeed: New system optimizations enable training models with over 100 billion parameters Link: https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/
+1.  Everything about Distributed Training and Efficient Finetuning Link: https://sumanthrh.com/post/distributed-and-efficient-finetuning/
+2.  Efficient Training on Multiple GPUs Link: https://huggingface.co/docs/transformers/v4.23.1/en/perf_train_gpu_many#efficient-training-on-multiple-gpus
+3.  ZeRO & DeepSpeed: New system optimizations enable training models with over 100 billion parameters Link: https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/
